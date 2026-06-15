@@ -1,0 +1,87 @@
+
+body {
+
+    background: url('') no-repeat center center/cover;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #015a17;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .blog-section {
+    padding: 50px 20px;
+    background-color: #ffffff;
+    text-align: center;
+  }
+  
+  .blog-section h1 {
+    color: #3db343;
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+  .intro-text {
+    color: #555;
+    margin-bottom: 40px;
+    font-size: 18px;
+  }
+  
+  .blog-posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  .post {
+    background-color: #23812b46;
+    border-radius: 10px;
+    max-width: 320px;
+    padding: 20px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s;
+  }
+  
+  .post:hover {
+    transform: translateY(-5px);
+  }
+  
+  .post img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .post h2 {
+    font-size: 20px;
+    color: #2e7d32;
+    margin: 15px 0 10px;
+  }
+  
+  .post p {
+    color: #444;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  .post a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #1b5e20;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .post a:hover {
+    text-decoration: underline;
+  }
+  .submit-button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}

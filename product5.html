@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Route and Carbon Emission Calculator</title>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #4ccb114b, #33f52cd5);
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-top: 20px;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 450px;
+      margin: 20px auto;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 5px rgba(72, 191, 128, 0.6);
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #45a049, #4CAF50);
+      transform: scale(1.03);
+    }
+
+    .toggle-button {
+      background-color: #4aba00;
+      margin: 20px auto;
+      display: block;
+    }
+
+    .results {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 15px;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    #map {
+      height: 80vh;
+      width: 100%;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Carbon Emission Route Calculator</h2>
+
+  <button class="toggle-button" onclick="toggleView()">Show Map</button>
+
+  <div id="form-container" class="form-container">
+    <div class="form-group">
+      <label for="start">Start Location:</label>
+      <input type="text" id="start" placeholder="Enter start location" />
+    </div>
+
+    <div class="form-group">
+      <label for="destination">Destination:</label>
+      <input type="text" id="destination" placeholder="Enter destination" />
+    </div>
+
+    <div class="form-group">
+      <label for="mode">Mode of Transport:</label>
+      <select id="mode">
+        <option value="car">Car</option>
+        <option value="bike">Bike</option>
+        <option value="walk">Walk</option>
+        <option value="bus">Bus</option>
+        <option value="train">Train</option>
+      </select>
+    </div>
+
+    <button onclick="getRoute()">Get Route</button>
+  </div>
+
+  <div id="map"></div>
+
+  <div class="results">
+    <p id="distance">Distance: 0 km</p>
+    <p id="carbon">Estimated Carbon Emission: 0 g CO₂</p>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+
+  <script>
+    let map;
+    let routeControl;
+
+    const carbonFactors = {
+      car: 120,
+      bike: 38.2,
+      walk: 0,
+      bus: 50,
+      train: 20
+    };
+
+    function toggleView() {
+      const mapContainer = document.getElementById('map');
+      const formContainer = document.getElementById('form-container');
+      const toggleButton = document.querySelector('.toggle-button');
+
+      if (mapContainer.style.display === "none") {
+        formContainer.style.display = "none";
+        mapContainer.style.display = "block";
+        toggleButton.textContent = "Show Form";
+
+        if (!map) {
+          initMap();
+        } else {
+          setTimeout(() => {
+            map.invalidateSize(); // Ensure proper rendering
+          }, 100);
+        }
+      } else {
+        mapContainer.style.display = "none";
+        formContainer.style.display = "block";
+        toggleButton.textContent = "Show Map";
+      }
+    }
+
+    function initMap() {
+      map = L.map('map').setView([11.1271, 78.6569], 7);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      routeControl = L.Routing.control({
+        waypoints: [],
+        routeWhileDragging: true,
+        createMarker: () => null
+      }).addTo(map);
+    }
+
+    function getRoute() {
+      const start = document.getElementById('start').value;
+      const destination = document.getElementById('destination').value;
+      const mode = document.getElementById('mode').value;
+
+      if (!start || !destination) {
+        alert('Please enter both start and destination!');
+        return;
+      }
+
+      const geocodeStartUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(start)}`;
+      const geocodeDestinationUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(destination)}`;
+
+      Promise.all([
+        fetch(geocodeStartUrl).then(res => res.json()),
+        fetch(geocodeDestinationUrl).then(res => res.json())
+      ])
+      .then(results => {
+        if (!results[0][0] || !results[1][0]) {
+          alert("Location not found. Try being more specific.");
+          return;
+        }
+
+        const startLatLng = [results[0][0].lat, results[0][0].lon];
+        const destinationLatLng = [results[1][0].lat, results[1][0].lon];
+        setRoute(startLatLng, destinationLatLng, mode);
+      })
+      .catch(error => {
+        alert('Error geocoding locations: ' + error);
+      });
+    }
+
+    function setRoute(startLatLng, destinationLatLng, mode) {
+      if (!routeControl) {
+        alert("Map not initialized. Please switch to map view first.");
+        return;
+      }
+
+      routeControl.setWaypoints([
+        L.latLng(startLatLng[0], startLatLng[1]),
+        L.latLng(destinationLatLng[0], destinationLatLng[1])
+      ]);
+
+      routeControl.on('routesfound', function (e) {
+        const route = e.routes[0];
+        const distance = route.summary.totalDistance / 1000;
+        const carbonEmission = distance * carbonFactors[mode];
+
+        document.getElementById('distance').textContent = `Distance: ${distance.toFixed(2)} km`;
+        document.getElementById('carbon').textContent = `Estimated Carbon Emission: ${carbonEmission.toFixed(2)} g CO₂`;
+      });
+    }
+  </script>
+</body>
+</html>

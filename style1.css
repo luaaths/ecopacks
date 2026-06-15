@@ -1,0 +1,25 @@
+.product-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('bin2.jfif') no-repeat center center/cover;
+    color: #ffffff;
+}
+.product-card {
+  background-color: rgba(255, 255, 255, 0.432);
+  backdrop-filter: blur(8px);
+  padding: 30px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.61);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}

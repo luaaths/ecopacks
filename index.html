@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Eco-Friendly Packaging</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Top header buttons */
+        .top-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding: 15px 20px;
+            background-color: #f4f4f4c5;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .top-buttons button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .top-buttons button:hover {
+            background-color: #45a049;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top-most buttons -->
+    <div class="top-buttons">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='about2.html'">About</button>
+        <button onclick="location.href='contact.html'">Contact</button>
+        <button onclick="location.href='login.html'">Login</button>
+    </div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Eco-Friendly Packaging</h1>
+            <p>Helping the planet, one package at a time.</p>
+            <a href="#about" class="btn">Learn More</a>
+        </div>
+    </header>
+
+    <section id="about" class="fade-in">
+        <h2>Why Choose Eco-Friendly Packaging?</h2>
+        <p>Eco-friendly packaging is designed to minimize harm to the environment. Our materials are biodegradable,
+            recyclable, and reduce waste.</p>
+    </section>
+
+    <div class="product-gallery">
+        <button class="product-card" onclick="location.href='product.html'">
+            <h3>Recyclable Boxes</h3>
+            <p>Made from 100% recycled paper and cardboard.</p>
+        </button>
+        <button class="product-card" onclick="location.href='product2.html'">
+            <h3>Eco-Quiz</h3>
+            <p>To Know your annualCarbon Emission Answer The Question.</p>
+        </button>
+        <button class="product-card" onclick="location.href='product3.html'">
+            <h3>Eco-Impact Calculator</h3>
+            <p>To calculate the waste which you produced.</p>
+        </button>
+        <button class="product-card" onclick="location.href='product4.html'">
+            <h3>Student-blog</h3>
+            <p>Solutions for eco-logical problems.</p>
+        </button>
+        <button class="product-card" onclick="location.href='product5.html'">
+            <h3>Eco-Friendly Journey</h3>
+            <p>Solutions for pollution during travelling.</p>
+        </button>
+        <button class="product-card" onclick="location.href='product6.html'">
+            <h3>Location Marker</h3>
+            <p>Mark the eco-logical problems.</p>
+        </button>
+    </div>
+
+    <section id="contact" class="fade-in">
+        <h2>Get In Touch</h2>
+        <p>Contact us to learn more about how we can help you reduce your packaging waste!</p>
+        <form action="mailto:ecopackingucer5@gmail.com" method="post" enctype="text/plain" class="contact-form">
+            <label for="email" class="visually-hidden">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+            <label for="message" class="visually-hidden">Your Message</label>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Eco Packaging Co. | All rights reserved.</p>
+        <p>AI Powered</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Fade-in animation on scroll
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const appearOnScroll = new IntersectionObserver(function (entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+    </script>
+
+   <script
+    chatbot_id="682c98523e996733fdeeab5d"
+    data-type="bar"
+    src="https://app.thinkstack.ai/bot/thinkstackai-loader.min.js"
+></script>

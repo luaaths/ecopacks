@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - Eco-Friendly Packaging</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('night2.JFIF') no-repeat center center/cover;
+      color: white;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: center;
+      background-color: #e9f5ec;
+      padding: 10px 0;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .top-buttons button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .top-buttons button:hover {
+      background-color: #1b5e20;
+    }
+
+    .about-container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 30px;
+    }
+
+    .profile-card {
+      display: flex;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .profile-card:hover {
+      transform: scale(1.02);
+      background-color: rgba(0, 50, 0, 0.6);
+    }
+
+    .profile-card img {
+      width: 140px;
+      height: 140px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 25px;
+      border: 3px solid #90ee90;
+    }
+
+    .profile-info {
+      text-align: left;
+    }
+
+    .profile-info h2 {
+      font-size: 1.8rem;
+      color: #90ee90;
+      margin-bottom: 5px;
+    }
+
+    .profile-info h3 {
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .profile-info p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #222;
+      color: #fff;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .profile-card img {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+
+      .profile-info {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-buttons">
+    <button onclick="location.href='index.html'">Home</button>
+    <button onclick="location.href='about2.html'">About</button>
+    <button onclick="location.href='contact.html'">Contact</button>
+  </div>
+
+  <div class="about-container">
+    <h1>Meet the Developers</h1>
+
+    <div class="profile-card">
+      <img src="me.jpg" alt="Rajeshkumar">
+      <div class="profile-info">
+        <h2>Rajeshkumar</h2>
+        <h3>Team Leader</h3>
+        <p>Lead developer and designer of Eco-Friendly Packaging. Rajesh is passionate about green tech and built this site to promote sustainability in packaging through smart design and code.</p>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <img src="IMG-20250512-WA0007.jpg" alt="Logesh">
+      <div class="profile-info">
+        <h2>Logesh</h2>
+        <h3>Project Developer</h3>
+        <p>Backend developer and eco-calculator engineer. Logesh optimized the website's performance and developed tools to measure environmental impact.</p>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <img src="IMG-20250512-WA0002.jpg" alt="Arun Kumar">
+      <div class="profile-info">
+        <h2>Arun Kumar</h2>
+        <h3>Project Executer</h3>
+        <p>Frontend developer and accessibility advocate. Arun created a responsive layout and clean UI, and supports local businesses in reducing packaging waste.</p>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <img src="IMG-20250512-WA0006.jpg" alt="Surya">
+      <div class="profile-info">
+        <h2>Surya</h2>
+        <h3>Project Innovator</h3>
+        <p>Creative problem-solver and eco-impact strategist. Surya led innovation brainstorming and improved features for community involvement and sustainability.</p>
+      </div>
+    </div>
+
+    <div class="profile-card">
+      <img src="sureshdp.jfif" alt="Suresh Rajan">
+      <div class="profile-info">
+        <h2>Suresh Rajan</h2>
+        <h3>Data Collector</h3>
+        <p>Collected and analyzed environmental data. Suresh helped ensure that our features are rooted in real impact metrics and supported our eco-calculator tools.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Eco Packaging Co. | All rights reserved.</p>
+    <audio autoplay loop hidden>
+      <source src="night-ambience-17064.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Products</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+    font-family: 'Arial', sans-serif;
+    background: url('bin2.jfif') no-repeat center center/cover;
+    color: #ffffff;
+}
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 2.5rem;
+    }
+
+    #products {
+      padding: 40px 20px;
+    }
+
+    .product-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      justify-items: center;
+      margin-top: 40px;
+    }
+
+    .product-card {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      max-width: 280px;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .product-card h2 {
+      font-size: 1.5rem;
+      margin: 10px 0;
+      color: #2e7d32;
+    }
+
+    .product-card p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .product-card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .product-card a:hover {
+      background-color: #45a049;
+    }
+
+    /* Star Rating System */
+    .star-rating {
+      direction: rtl;
+      font-size: 1.5rem;
+      unicode-bidi: bidi-override;
+      display: inline-block;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .star-rating span {
+      color: #ccc;
+      padding: 5px;
+      transition: color 0.3s;
+    }
+
+    .star-rating span:hover,
+    .star-rating span:hover ~ span {
+      color: gold;
+    }
+
+    .star-rating[data-rated="1"] span[data-value="1"],
+    .star-rating[data-rated="2"] span[data-value="1"],
+    .star-rating[data-rated="2"] span[data-value="2"],
+    .star-rating[data-rated="3"] span[data-value="1"],
+    .star-rating[data-rated="3"] span[data-value="2"],
+    .star-rating[data-rated="3"] span[data-value="3"],
+    .star-rating[data-rated="4"] span[data-value="1"],
+    .star-rating[data-rated="4"] span[data-value="2"],
+    .star-rating[data-rated="4"] span[data-value="3"],
+    .star-rating[data-rated="4"] span[data-value="4"],
+    .star-rating[data-rated="5"] span {
+      color: gold;
+    }
+
+    .rating-result {
+      font-size: 0.9rem;
+      color: #444;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="products">
+    <h1>Our Products</h1>
+    <div class="product-gallery">
+
+      <!-- Repeatable Product Card -->
+      <div class="product-card">
+        <h2>SmurfitWestRock</h2>
+        <img src="cardboard.jfif" alt="SmurfitWestRock packaging" />
+        <p>Made from 100% recycled paper and cardboard. Distributed all over India.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.smurfitwestrock.com/sustainability">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>VidhishaPaper</h2>
+        <img src="carboard2.jfif" alt="VidhishaPaper packaging" />
+        <p>Reusable cardboard boxes made from organic materials.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.vidhishapaper.com/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>TGI Packaging</h2>
+        <img src="cards.jpeg" alt="TGI Packaging product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://tgipackaging.in/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>NextInPack</h2>
+        <img src="card5.jfif" alt="NextInPack packaging" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://nextinpack.com/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>AnyBoxMachine</h2>
+        <img src="card6.webp" alt="AnyBoxMachine product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://anyboxmachine.com/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>SMPacking</h2>
+        <img src="card7.jfif" alt="SMPacking product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://smpacking.in/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>EskayCartons</h2>
+        <img src="card8.jfif" alt="EskayCartons product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.eskaycartons.in/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>GreenHandle</h2>
+        <img src="cardboard.jfif" alt="GreenHandle product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.greenhandle.in/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>AaradhyaBox</h2>
+        <img src="card9.png" alt="AaradhyaBox product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://aaradhyabox.in/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>RecycleBaba</h2>
+        <img src="card9.webp" alt="RecycleBaba product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://recyclebaba.com/scrap-price-list/">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>RecycleInMe</h2>
+        <img src="card12.jfif" alt="RecycleInMe product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.recycleinme.com/scrappricelisting/Indian%20Scrap%20Prices">Learn More</a>
+      </div>
+
+      <div class="product-card">
+        <h2>ChennaiPolyPack</h2>
+        <img src="card11.jfif" alt="ChennaiPolyPack product" />
+        <p>Compostable packaging that protects your products while reducing waste.</p>
+        <div class="star-rating" data-rated="0">
+          <span data-value="5">&#9733;</span>
+          <span data-value="4">&#9733;</span>
+          <span data-value="3">&#9733;</span>
+          <span data-value="2">&#9733;</span>
+          <span data-value="1">&#9733;</span>
+        </div>
+        <p class="rating-result">No rating yet</p>
+        <a href="https://www.chennaipolypack.com/corrugated-box.html">Learn More</a>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.star-rating').forEach(starRating => {
+      const stars = starRating.querySelectorAll('span');
+      const result = starRating.nextElementSibling;
+
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const rating = star.getAttribute('data-value');
+          starRating.setAttribute('data-rated', rating);
+          result.textContent = `You rated this ${rating} star${rating > 1 ? 's' : ''}.`;
+        });
+
+        star.addEventListener('mouseover', () => {
+          starRating.removeAttribute('data-rated');
+        });
+
+        starRating.addEventListener('mouseleave', () => {
+          const rated = starRating.getAttribute('data-rated');
+          if (rated > 0) {
+            result.textContent = `You rated this ${rated} star${rated > 1 ? 's' : ''}.`;
+          } else {
+            result.textContent = "No rating yet";
+          }
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>

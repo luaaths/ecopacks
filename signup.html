@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Create your account to access Eco-Friendly Packaging features">
+    <title>Eco Blog - Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Global styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #A8D08D, #82B74B);
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .login-container p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            font-size: 1rem;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-form button:hover {
+            background-color: #45a049;
+        }
+
+        .login-container .links {
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        .login-container .links a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .login-container .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Create Account</h2>
+        <p>Sign up to get access to Eco-Friendly Packaging features.</p>
+
+        <div class="login-form">
+            <form id="signupForm">
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+
+            <div class="links">
+                <p>Already have an account? <a href="login.html">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC03T3GycLmfpBZMZED46Ou8qBcSfxC55Q",
+            authDomain: "ecopack-1dd8a.firebaseapp.com",
+            projectId: "ecopack-1dd8a",
+            storageBucket: "ecopack-1dd8a.appspot.com",
+            messagingSenderId: "672808412513",
+            appId: "1:672808412513:web:1b6a03271ad7fc9f8e1120",
+            measurementId: "G-L1NJ144K5Y"
+        };
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Sign-up function
+        document.getElementById("signupForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
+
+            try {
+                // Sign up using Firebase Authentication
+                const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                console.log("User signed up:", userCredential.user);
+                alert("Account created successfully! You can now login.");
+                window.location.href = "login.html"; // Redirect to login page
+            } catch (error) {
+                console.error("Error signing up:", error.message);
+                if (error.code === 'auth/email-already-in-use') {
+                    alert("This email is already in use. Please use another email.");
+                } else if (error.code === 'auth/weak-password') {
+                    alert("Password is too weak. It must be at least 6 characters long.");
+                } else {
+                    alert("Error: " + error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

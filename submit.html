@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit a Blog Post</title>
+</head>
+<body>
+  <h1>📝 Submit Your Blog</h1>
+  <form action="save_blog.php" method="post">
+    <label>Title:</label><br>
+    <input type="text" name="title" required><br><br>
+
+    <label>Image URL (optional):</label><br>
+    <input type="text" name="image"><br><br>
+
+    <label>Blog Content:</label><br>
+    <textarea name="content" rows="10" cols="50" required></textarea><br><br>
+
+    <input type="submit" value="Submit Blog">
+  </form>
+</body>
+</html>

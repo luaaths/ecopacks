@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Community Tracker Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 90vh;
+      width: 100%;
+    }
+    .controls {
+      padding: 10px;
+      background: #f5f5f5f6;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    input, select, button {
+      padding: 8px;
+      font-size: 14px;
+    }
+    .popup-btn {
+      display: inline-block;
+      padding: 5px 8px;
+      background: #00ff0d;
+      color: rgb(255, 255, 255);
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+    .popup-btn.delete {
+      background: #dc3545;
+    }
+  </style>
+</head>
+<body>
+
+<h3 style="text-align:center;">🗺️ Community Map: Mark Safe Zones, Garbage, or Issues</h3>
+
+<div class="controls">
+  <select id="markerType">
+    <option value="garbage">🚮 Garbage</option>
+    <option value="safe">✅ Safe</option>
+    <option value="unsafe">⚠️ Unsafe</option>
+    <option value="maintenance">🛠️ Maintenance</option>
+    <option value="note">📍 Note</option>
+  </select>
+  <input type="text" id="markerTitle" placeholder="Title" />
+  <input type="text" id="markerDesc" placeholder="Description (optional)" />
+  <button onclick="filterMarkers()">Filter</button>
+  <button onclick="resetFilter()">Reset</button>
+</div>
+
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+
+<script>
+  let map;
+  let markerCluster;
+  let markers = JSON.parse(localStorage.getItem('markers') || '[]');
+
+  const icons = {
+    garbage: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/10491/10491928.png', iconSize: [30, 30] }),
+    safe: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/845/845646.png', iconSize: [30, 30] }),
+    unsafe: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/1828/1828843.png', iconSize: [30, 30] }),
+    maintenance: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/3103/3103446.png', iconSize: [30, 30] }),
+    note: L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [30, 30] })
+  };
+
+  window.onload = function () {
+    map = L.map('map').setView([20.5937, 78.9629], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    markerCluster = L.markerClusterGroup();
+    map.addLayer(markerCluster);
+
+    markers.forEach(m => addMarkerToMap(m));
+
+    map.on('click', function (e) {
+      const type = document.getElementById('markerType').value;
+      const title = document.getElementById('markerTitle').value.trim();
+      const desc = document.getElementById('markerDesc').value.trim();
+
+      if (!title) {
+        alert("Please enter a title.");
+        return;
+      }
+
+      const markerData = {
+        lat: e.latlng.lat,
+        lng: e.latlng.lng,
+        type,
+        title,
+        desc
+      };
+
+      markers.push(markerData);
+      localStorage.setItem('markers', JSON.stringify(markers));
+      addMarkerToMap(markerData);
+    });
+  };
+
+  function addMarkerToMap(data) {
+    const { lat, lng, type, title, desc } = data;
+    const icon = icons[type] || icons.note;
+
+    const marker = L.marker([lat, lng], { icon });
+    marker.bindPopup(`
+      <strong>${title}</strong><br>
+      ${desc}<br>
+      <small>Type: ${type}</small><br>
+      <span class="popup-btn" onclick="editMarker(${lat}, ${lng})">✏️ Edit</span>
+      <span class="popup-btn delete" onclick="deleteMarker(${lat}, ${lng})">🗑️ Delete</span>
+    `);
+
+    markerCluster.addLayer(marker);
+  }
+
+  function deleteMarker(lat, lng) {
+    if (!confirm("Delete this marker?")) return;
+    markers = markers.filter(m => !(m.lat === lat && m.lng === lng));
+    localStorage.setItem('markers', JSON.stringify(markers));
+    location.reload();
+  }
+
+  function editMarker(lat, lng) {
+    const marker = markers.find(m => m.lat === lat && m.lng === lng);
+    if (!marker) return;
+
+    const newTitle = prompt("New Title:", marker.title);
+    const newDesc = prompt("New Description:", marker.desc);
+
+    if (newTitle) {
+      marker.title = newTitle;
+      marker.desc = newDesc;
+      localStorage.setItem('markers', JSON.stringify(markers));
+      location.reload();
+    }
+  }
+
+  function filterMarkers() {
+    const selectedType = document.getElementById('markerType').value;
+    markerCluster.clearLayers();
+    markers.filter(m => m.type === selectedType).forEach(m => addMarkerToMap(m));
+  }
+
+  function resetFilter() {
+    markerCluster.clearLayers();
+    markers.forEach(m => addMarkerToMap(m));
+  }
+</script>
+
+</body>
+</html>

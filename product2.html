@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Meet Eco – Your Carbon Quiz 🌱</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f0fdf4, #e0f7fa);
+      text-align: center;
+      padding: 30px;
+    }
+
+    .eco-avatar {
+      font-size: 70px;
+      margin-bottom: 10px;
+    }
+
+    .quiz-box {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+
+    .quiz-step {
+      display: none;
+    }
+
+    .quiz-step.active {
+      display: block;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4aa626;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00790a;
+    }
+
+    #progress {
+      height: 20px;
+      background: #b2dfdb;
+      margin: 20px 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background: #4aa626;
+      transition: width 0.4s;
+    }
+
+    #result {
+      display: none;
+    }
+
+    .emoji-result {
+      font-size: 50px;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="eco-avatar">🌱</div>
+  <h1>Meet Eco – Your Climate Buddy</h1>
+  <p>Take this quick quiz to see your carbon impact!</p>
+
+  <div class="quiz-box">
+    <div id="progress">
+      <div id="progress-bar"></div>
+    </div>
+
+    <!-- Quiz Steps -->
+    <div class="quiz-step active" id="step1">
+      <h2>1. ✈️ How often do you fly each year?</h2>
+      <button onclick="addScore(0, 'travel'); nextStep(1)">Never</button>
+      <button onclick="addScore(1.5, 'travel'); nextStep(1)">1–2 times</button>
+      <button onclick="addScore(3, 'travel'); nextStep(1)">3–5 times</button>
+      <button onclick="addScore(5, 'travel'); nextStep(1)">More than 5</button>
+    </div>
+
+    <div class="quiz-step" id="step2">
+      <h2>2. 🚗 What’s your main transport mode?</h2>
+      <button onclick="addScore(0, 'car'); nextStep(2)">Walk/Bike/Public Transit</button>
+      <button onclick="addScore(1, 'car'); nextStep(2)">Electric Car</button>
+      <button onclick="addScore(2, 'car'); nextStep(2)">Petrol Car</button>
+      <button onclick="addScore(3, 'car'); nextStep(2)">SUV/Truck</button>
+    </div>
+
+    <div class="quiz-step" id="step3">
+      <h2>3. 🍽️ How often do you eat meat?</h2>
+      <button onclick="addScore(0, 'meat'); nextStep(3)">Never</button>
+      <button onclick="addScore(1, 'meat'); nextStep(3)">Sometimes</button>
+      <button onclick="addScore(2, 'meat'); nextStep(3)">Daily</button>
+      <button onclick="addScore(3, 'meat'); nextStep(3)">More than daily</button>
+    </div>
+
+    <div class="quiz-step" id="step4">
+      <h2>4. ⚡ What powers your home?</h2>
+      <button onclick="addScore(0, 'energy'); nextStep(4)">100% renewable</button>
+      <button onclick="addScore(1, 'energy'); nextStep(4)">Mostly renewable</button>
+      <button onclick="addScore(2, 'energy'); nextStep(4)">Mixed grid</button>
+      <button onclick="addScore(2.5, 'energy'); nextStep(4)">I don’t know</button>
+    </div>
+
+    <div class="quiz-step" id="step5">
+      <h2>5. 🛍️ How often do you buy new clothes?</h2>
+      <button onclick="addScore(0, 'fashion'); nextStep(5)">Rarely</button>
+      <button onclick="addScore(1, 'fashion'); nextStep(5)">Monthly</button>
+      <button onclick="addScore(2, 'fashion'); nextStep(5)">Weekly</button>
+      <button onclick="addScore(3, 'fashion'); nextStep(5)">All the time</button>
+    </div>
+
+    <div class="quiz-step" id="step6">
+      <h2>6. 🚿 How long are your daily showers?</h2>
+      <button onclick="addScore(0, 'water'); nextStep(6)">Less than 5 mins</button>
+      <button onclick="addScore(0.5, 'water'); nextStep(6)">5–10 mins</button>
+      <button onclick="addScore(1.5, 'water'); nextStep(6)">10–20 mins</button>
+      <button onclick="addScore(2, 'water'); nextStep(6)">Over 20 mins</button>
+    </div>
+
+    <div class="quiz-step" id="step7">
+      <h2>7. ♻️ How often do you recycle?</h2>
+      <button onclick="addScore(0, 'waste'); nextStep(7)">Always</button>
+      <button onclick="addScore(0.5, 'waste'); nextStep(7)">Often</button>
+      <button onclick="addScore(1.5, 'waste'); nextStep(7)">Rarely</button>
+      <button onclick="addScore(2, 'waste'); nextStep(7)">Never</button>
+    </div>
+
+    <div class="quiz-step" id="step8">
+      <h2>8. 🍽️ How much food do you waste?</h2>
+      <button onclick="addScore(0, 'waste'); showResult()">None</button>
+      <button onclick="addScore(1, 'waste'); showResult()">Sometimes</button>
+      <button onclick="addScore(2, 'waste'); showResult()">Often</button>
+      <button onclick="addScore(3, 'waste'); showResult()">Too much</button>
+    </div>
+
+    <!-- Results -->
+    <div id="result">
+      <div class="emoji-result" id="emoji"></div>
+      <h2 id="scoreText"></h2>
+      <p id="adviceText"></p>
+      <button onclick="location.reload()">🔁 Try Again</button>
+    </div>
+  </div>
+
+  <script>
+    let score = 0;
+    let currentStep = 1;
+    let categoryScores = {
+      travel: 0, car: 0, meat: 0, energy: 0, fashion: 0, water: 0, waste: 0
+    };
+
+    function addScore(value, category) {
+      score += value;
+      if (categoryScores[category] !== undefined) {
+        categoryScores[category] += value;
+      }
+    }
+
+    function nextStep(step) {
+      document.getElementById(`step${step}`).classList.remove('active');
+      const next = document.getElementById(`step${step + 1}`);
+      if (next) next.classList.add('active');
+      updateProgress(step + 1);
+    }
+
+    function updateProgress(step) {
+      const progress = (step / 8) * 100;
+      document.getElementById('progress-bar').style.width = progress + '%';
+    }
+
+    function showResult() {
+      document.querySelector('.quiz-step.active').classList.remove('active');
+      document.getElementById('result').style.display = 'block';
+      document.getElementById('progress-bar').style.width = '100%';
+
+      let emoji = '🌍';
+      let msg = '';
+      let advice = '';
+
+      if (score <= 5) {
+        emoji = '🏆';
+        msg = `Amazing! Your carbon footprint is very low (${score.toFixed(1)} tons/year)`;
+      } else if (score <= 12) {
+        emoji = '😊';
+        msg = `Good job! Your footprint is moderate (${score.toFixed(1)} tons/year)`;
+      } else if (score <= 18) {
+        emoji = '⚠️';
+        msg = `Room to improve! Your footprint is high (${score.toFixed(1)} tons/year)`;
+      } else {
+        emoji = '🚨';
+        msg = `Warning! High footprint: ${score.toFixed(1)} tons/year`;
+      }
+
+      // Tailored advice based on biggest category
+      const worst = Object.entries(categoryScores).sort((a, b) => b[1] - a[1])[0][0];
+      const tips = {
+        travel: "✈️ Try to reduce flights or offset your air travel.",
+        car: "🚗 Walk, bike, or use transit when possible.",
+        meat: "🥦 Eat more plant-based meals to lower food emissions.",
+        energy: "⚡ Consider switching to renewable energy sources.",
+        fashion: "👗 Buy fewer clothes and try thrift shops.",
+        water: "🚿 Take shorter showers to save water & energy.",
+        waste: "♻️ Recycle regularly and reduce food waste."
+      };
+
+      advice = `Tip from Eco: ${tips[worst]}`;
+
+      document.getElementById('emoji').innerText = emoji;
+      document.getElementById('scoreText').innerText = msg;
+      document.getElementById('adviceText').innerText = advice;
+    }
+  </script>
+
+</body>
+</html>

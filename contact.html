@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Eco-Friendly Packaging</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('greenery.JFIF') no-repeat center center/cover;
+            color: white;
+            padding: 0;
+            margin: 0;
+        }
+
+        .top-buttons {
+            display: flex;
+            justify-content: center;
+            background-color: #e9f5ec;
+            padding: 10px 0;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .top-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .top-buttons button:hover {
+            background-color: #1b5e20;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background-color: #45a049;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            color: #fff;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-buttons">
+        <button onclick="location.href='index.html'">Home</button>
+        <button onclick="location.href='about2.html'">About</button>
+        <button onclick="location.href='contact.html'">Contact</button>
+    </div>
+
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <form class="contact-form" action="mailto:ecopackingucer5@gmail.com" method="POST" enctype="text/plain">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+
+        <div class="contact-info">
+            <p><strong>Email:</strong>ecopackingucer5@gmail.com</p>
+            <p><strong>Address:</strong>University college of engineering,
+                Ramanathapuram,
+                Tamilnadu,
+                Planet Earth</p>
+        </div>
+    </div>
+    
+
+    <footer>
+        <p>&copy; 2025 Eco Packaging Co. | All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

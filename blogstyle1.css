@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: 'Merriweather', serif;
+  background: url('gre.jpg') no-repeat center center/cover;
+  background-color: #f0f5f1;
+  color: #2f4f4f;
+}
+
+header {
+  background-color: #3a5f0b;
+  color: rgb(255, 255, 255);
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #dff0d8;
+  text-decoration: none;
+}
+
+.hero {
+  background: url('nature-forest.jpg') no-repeat center center/cover;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.posts {
+  padding: 40px;
+  display: grid;
+  gap: 20px;
+}
+
+article {
+  background: rgba(255, 255, 255, 0.541);
+  
+  padding: 20px;
+  border-left: 5px solid #3a5f0b;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #e6ebe0;
+}

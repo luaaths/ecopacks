@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eco Blog - Educational Insights</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #9ffc74;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .blog-section {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1, h2 {
+      color: #2e7d32;
+    }
+
+    .intro-text {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 40px;
+    }
+
+    .blog-posts {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .post {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .post:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .post img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .post h2 {
+      margin-top: 0;
+    }
+
+    .learn-more-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 12px;
+      background-color: #2e7d32;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    .learn-more-btn:hover {
+      background-color: #1b5e20;
+    }
+
+    .submit-form {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .submit-form input,
+    .submit-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .submit-form button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .submit-form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <section class="blog-section">
+    <h1>🌱 Eco Insights: Our Educational Blog</h1>
+    <p class="intro-text">Explore tips, facts, and guides on sustainable packaging — or share your own!</p>
+
+    <!-- Blog Posts Container -->
+    <div id="blog-posts" class="blog-posts"></div>
+
+    <!-- Blog Submission Form -->
+    <div class="submit-form">
+      <h2>📝 Submit Your Own Blog Post</h2>
+      <form id="blogForm">
+        <input type="text" id="title" placeholder="Blog Title" required>
+        <input type="text" id="image" placeholder="Image URL (optional)">
+        <input type="text" id="link" placeholder="Learn More URL (optional)">
+        <textarea id="content" placeholder="Write your blog content here..." rows="5" required></textarea>
+        <button type="submit">Post Blog</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Firebase and Firestore -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC03T3GycLmfpBZMZED46Ou8qBcSfxC55Q",
+      authDomain: "ecopack-1dd8a.firebaseapp.com",
+      projectId: "ecopack-1dd8a",
+      storageBucket: "ecopack-1dd8a.appspot.com",
+      messagingSenderId: "672808412513",
+      appId: "1:672808412513:web:1b6a03271ad7fc9f8e1120"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const blogPosts = document.getElementById('blog-posts');
+    const form = document.getElementById('blogForm');
+
+    const initialPosts = [
+      {
+        title: "Why Eco-Friendly Packaging Matters",
+        image: "sur.jfif",
+        content: "Discover the environmental impact of traditional packaging and how sustainable alternatives make a difference.",
+        link: "key1.html"
+      },
+      {
+        title: "Compostable vs. Recyclable: What’s the Difference?",
+        image: "log.jfif",
+        content: "We break down the key differences and help you decide which packaging is best for your needs.",
+        link: "key2.html"
+      },
+      {
+        title: "How to Switch to Sustainable Packaging",
+        image: "arun.jfif",
+        content: "A step-by-step guide for businesses looking to reduce waste and become more eco-conscious.",
+        link: "key3.html"
+      },
+      {
+        title: "How Packaging Materials Break Down",
+        image: "card11.jfif",
+        content: "Learn how different sustainable materials decompose and what conditions affect their breakdown time.",
+        link: "key4.html"
+      }
+    ];
+
+    function renderPost(post) {
+      const postDiv = document.createElement('div');
+      postDiv.classList.add('post');
+
+      if (post.image) {
+        const img = document.createElement('img');
+        img.src = post.image;
+        img.alt = post.title;
+        postDiv.appendChild(img);
+      }
+
+      const h2 = document.createElement('h2');
+      h2.textContent = post.title;
+      postDiv.appendChild(h2);
+
+      const p = document.createElement('p');
+      p.textContent = post.content;
+      postDiv.appendChild(p);
+
+      if (post.link) {
+        const learnMore = document.createElement('a');
+        learnMore.href = post.link;
+        learnMore.textContent = 'Learn More';
+        learnMore.className = 'learn-more-btn';
+        learnMore.target = "_blank";
+        postDiv.appendChild(learnMore);
+      }
+
+      blogPosts.appendChild(postDiv);
+    }
+
+    async function loadAndRenderPosts() {
+      blogPosts.innerHTML = "";
+
+      const q = query(collection(db, "posts"), orderBy("timestamp", "desc"));
+      const snapshot = await getDocs(q);
+
+      snapshot.forEach(doc => {
+        renderPost(doc.data());
+      });
+
+      // Add static posts
+      initialPosts.forEach(post => renderPost(post));
+    }
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const image = document.getElementById('image').value.trim();
+      const link = document.getElementById('link').value.trim();
+
+      if (!title || !content) {
+        alert("Please fill out the title and content.");
+        return;
+      }
+
+      const newPost = {
+        title,
+        content,
+        image,
+        link,
+        timestamp: serverTimestamp()
+      };
+
+      try {
+        await addDoc(collection(db, "posts"), newPost);
+        form.reset();
+        loadAndRenderPosts();
+      } catch (error) {
+        console.error("Error adding document: ", error);
+        alert("Error saving blog post.");
+      }
+    });
+
+    loadAndRenderPosts();
+  </script>
+</body>
+</html>

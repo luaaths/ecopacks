@@ -1,0 +1,40 @@
+body {
+    background: url('lll.jfif') no-repeat center center/cover;
+  font-family: Arial, sans-serif;
+  background-color: #f4fdf4;
+  color: #333;
+  text-align: center;
+  padding: 50px;
+}
+
+.calculator-container {
+  background-color: rgba(255, 255, 255, 0.678);
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input {
+  padding: 10px;
+  margin: 10px 0;
+  width: 200px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+#results {
+  margin-top: 20px;
+  font-size: 18px;
+}
